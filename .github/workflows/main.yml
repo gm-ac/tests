@@ -29,3 +29,7 @@ jobs:
     - name: Test with unittest
       run: |
         python -m unittest square.py
+        python -m unittest circle.py
+        python -m unittest triangle.py
+
+
