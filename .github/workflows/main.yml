@@ -26,7 +26,7 @@ jobs:
         ./run_tests.sh
     - name: Test with unittest Windows  
       if: runner.os!='Linux'
-      shell: ps
+      shell: cmd
       run: |
         run_tests.bat
       
