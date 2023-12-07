@@ -3,34 +3,32 @@ name: Python tests of geometric shapes
 on:
   push:
     branches: [ "master" ]
-  #pull_request:
-  #  branches: [ "master" ]
-
-permissions:
-  contents: read
-
+defaults:
+  run: 
+    shell: bash
 jobs:
-  build:
-
+  run_and_test:
     runs-on: ${{ matrix.os }}
+    continue-on-error: true
     strategy:
       matrix:
-        os: [ubuntu-latest]
-
+        os: [ubuntu-latest, windows-latest]
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
         python-version: "3.10"
-    - name: Test with unittest
+    - name: Test with unittest Linux
+      if: runner.os == 'Linux'
       run: |
-          chmod +x ./run_tests.sh
-          ./run_tests.sh
-        
-      #run: |
-        #  python -m unittest square.py
-        #  python -m unittest circle.py
-        #  python -m unittest triangle.py
-
+        chmod +x ./run_tests.sh
+        ./run_tests.sh
+    - name: Test with unittest Windows  
+      if: runner.os!='Linux'
+      run: |
+        run_tests.bat
+      
+      
+       
 
